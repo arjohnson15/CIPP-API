@@ -35,7 +35,7 @@ if ($env:APPLICATIONINSIGHTS_CONNECTION_STRING -or $env:APPINSIGHTS_INSTRUMENTAT
 if ($hasAppInsights) {
     $SwAppInsights = [System.Diagnostics.Stopwatch]::StartNew()
     try {
-        $AppInsightsDllPath = Join-Path $env:CIPPRootPath 'Shared\AppInsights\Microsoft.ApplicationInsights.dll'
+        $AppInsightsDllPath = Join-Path $env:CIPPRootPath 'Shared' 'AppInsights' 'Microsoft.ApplicationInsights.dll'
         $null = [Reflection.Assembly]::LoadFile($AppInsightsDllPath)
         Write-Debug 'Application Insights SDK loaded successfully'
     } catch {
@@ -68,7 +68,7 @@ $Timings['CoreModules'] = $SwCoreModules.Elapsed.TotalMilliseconds
 # Load CIPPSharp assembly once at startup for all worker types
 $SwCIPPSharp = [System.Diagnostics.Stopwatch]::StartNew()
 try {
-    $CIPPSharpDllPath = Join-Path $env:CIPPRootPath 'Shared\CIPPSharp\bin\CIPPSharp.dll'
+    $CIPPSharpDllPath = Join-Path $env:CIPPRootPath 'Shared' 'CIPPSharp' 'bin' 'CIPPSharp.dll'
     if (-not ([System.AppDomain]::CurrentDomain.GetAssemblies().Location -contains $CIPPSharpDllPath)) {
         $null = [Reflection.Assembly]::LoadFile($CIPPSharpDllPath)
     }
@@ -265,7 +265,7 @@ $Timings['ExtraModules'] = $SwExtraModules.Elapsed.TotalMilliseconds
 if ($WorkerType -ne 'HttpOnly') {
     $SwCronos = [System.Diagnostics.Stopwatch]::StartNew()
     try {
-        $CronosDllPath = Join-Path $env:CIPPRootPath 'Shared\Cronos\Cronos.dll'
+        $CronosDllPath = Join-Path $env:CIPPRootPath 'Shared' 'Cronos' 'Cronos.dll'
         if (-not ([System.AppDomain]::CurrentDomain.GetAssemblies().Location -contains $CronosDllPath)) {
             $null = [Reflection.Assembly]::LoadFile($CronosDllPath)
         }
